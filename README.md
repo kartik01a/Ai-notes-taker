@@ -1,36 +1,201 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🧠 AI Notes App
 
-## Getting Started
+AI Notes is a full-stack Next.js App Router application that allows users to create, manage, and enhance personal notes using AI-powered features like text improvement, tagging, and summarization.
 
-First, run the development server:
+The app focuses on secure authentication, clean UI, and server-first architecture with modern best practices.
 
-```bash
+✨ Features
+🔐 Authentication
+
+Email & Password authentication using NextAuth (Credentials Provider)
+
+JWT-based session strategy
+
+Secure session handling on server components
+
+Protected routes (Dashboard, Notes)
+
+📝 Notes Management
+
+Create notes with title, content, and tags
+
+View all notes in a dashboard
+
+View individual note details
+
+Tags stored as arrays for better querying
+
+Notes are strictly user-scoped (per user access only)
+
+🤖 AI Features (OpenAI)
+
+Improve Note – Enhances the content using AI
+
+Generate Tags – Auto-generates relevant tags
+
+Summarize Note – Generates a concise summary (shown in dialog)
+
+AI actions show loaders for better UX
+
+🎨 UI / UX
+
+Built with shadcn/ui + Tailwind CSS
+
+Neutral, clean design
+
+Dark / Light theme toggle
+
+Loading spinners and empty states
+
+Markdown rendering for AI-generated content
+
+🏗️ Tech Stack
+
+Frontend: Next.js 14 (App Router)
+
+Backend APIs: Hono (inside Next.js API routes)
+
+Authentication: NextAuth (JWT strategy)
+
+Database: MongoDB + Mongoose
+
+AI: OpenAI API
+
+UI: Tailwind CSS v4, shadcn/ui, Lucide Icons
+
+Markdown Rendering: react-markdown
+
+📁 Project Structure (Simplified)
+app/
+ ├─ api/
+ │   ├─ auth/[...nextauth]/route.ts
+ │   ├─ [[...route]]/route.ts   # Hono APIs
+ ├─ dashboard/
+ ├─ notes/
+ │   ├─ new/
+ │   ├─ [id]/
+ ├─ login/
+ ├─ register/
+components/
+lib/
+model/
+types/
+
+🚀 Getting Started
+1️⃣ Clone the repository
+git clone https://github.com/your-username/ai-notes.git
+cd ai-notes
+
+2️⃣ Install dependencies
+npm install
+
+3️⃣ Environment Variables
+
+You’ve already pushed .env.example.
+Create your own .env file based on it:
+
+cp .env.example .env
+
+Required Environment Variables
+# MongoDB
+MONGODB_URI=
+
+# NextAuth
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=http://localhost:3000
+
+# OpenAI
+OPENAI_API_KEY=
+
+Notes
+
+NEXTAUTH_SECRET can be generated using:
+
+openssl rand -base64 32
+
+
+MongoDB should be a valid connection string
+
+OpenAI key is required for AI features (Improve, Tags, Summary)
+
+4️⃣ Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+http://localhost:3000
 
-## Learn More
+🔑 Authentication Flow
 
-To learn more about Next.js, take a look at the following resources:
+User registers using email & password
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Passwords are hashed using bcrypt
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Login handled by NextAuth Credentials provider
 
-## Deploy on Vercel
+JWT stores id, name, and email
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Server components use getServerSession(authOptions)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+APIs derive userId from JWT (never from client)
+
+🧠 AI Architecture
+
+AI APIs are implemented using Hono
+
+Each AI action has its own endpoint:
+
+/api/ai/improve
+
+/api/ai/tags
+
+/api/ai/summary
+
+Requests are client-triggered
+
+Responses update UI optimistically
+
+Loaders shown during AI processing
+
+🔐 Security Considerations
+
+User ID is never trusted from client
+
+Notes are fetched using both noteId and userId
+
+Protected routes enforced via server-side session checks
+
+API access validated using JWT tokens
+
+📌 Why This Architecture
+
+Server Components for performance & security
+
+Hono for lightweight, structured APIs
+
+JWT strategy for scalable auth
+
+Markdown storage for AI-generated content
+
+Tailwind + shadcn for consistent UI
+
+🧪 Future Improvements
+
+Edit / Delete notes
+
+Full-text search
+
+Tag-based filtering
+
+AI streaming responses
+
+Role-based access
+
+Note sharing
+
+👨‍💻 Author
+
+Kartik Singh
+MERN Stack & Full-Stack Developer
+Focused on scalable, production-ready web apps
