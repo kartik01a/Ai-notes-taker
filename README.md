@@ -1,201 +1,96 @@
-🧠 AI Notes App
+# 🧠 AI Notes
 
-AI Notes is a full-stack Next.js App Router application that allows users to create, manage, and enhance personal notes using AI-powered features like text improvement, tagging, and summarization.
+AI Notes is a full-stack **Next.js App Router** application that lets users create, manage, and enhance personal notes using **AI-powered features** such as content improvement, tag generation, and summarization.
 
-The app focuses on secure authentication, clean UI, and server-first architecture with modern best practices.
+The project focuses on **secure authentication**, **server-first rendering**, and a **clean, modern UI**.
 
-✨ Features
-🔐 Authentication
+---
 
-Email & Password authentication using NextAuth (Credentials Provider)
+## ✨ Features
 
-JWT-based session strategy
+### 🔐 Authentication
+- Email & Password authentication using **NextAuth (Credentials Provider)**
+- JWT-based session strategy
+- Secure server-side session handling
+- Protected routes (Dashboard, Notes)
 
-Secure session handling on server components
+---
 
-Protected routes (Dashboard, Notes)
+### 📝 Notes
+- Create notes with **title, content, and tags**
+- View all notes in a dashboard
+- View individual note details
+- Notes are strictly **user-specific**
+- Tags stored as arrays for better querying
 
-📝 Notes Management
+---
 
-Create notes with title, content, and tags
+### 🤖 AI Capabilities (OpenAI)
+- **Improve Note** – Enhances note content
+- **Generate Tags** – Auto-generates relevant tags
+- **Summarize Note** – Shows AI summary in a dialog
+- Loaders shown during AI processing
 
-View all notes in a dashboard
+---
 
-View individual note details
+### 🎨 UI / UX
+- Built with **shadcn/ui + Tailwind CSS**
+- Clean, neutral design
+- Dark / Light theme toggle
+- Loading states and empty states
+- Markdown rendering for AI-generated content
 
-Tags stored as arrays for better querying
+---
 
-Notes are strictly user-scoped (per user access only)
+## 🏗️ Tech Stack
 
-🤖 AI Features (OpenAI)
+- **Framework**: Next.js 14 (App Router)
+- **Backend APIs**: Hono
+- **Authentication**: NextAuth (JWT strategy)
+- **Database**: MongoDB + Mongoose
+- **AI**: OpenAI API
+- **UI**: Tailwind CSS v4, shadcn/ui, Lucide Icons
+- **Markdown**: react-markdown
 
-Improve Note – Enhances the content using AI
+---
 
-Generate Tags – Auto-generates relevant tags
 
-Summarize Note – Generates a concise summary (shown in dialog)
+---
 
-AI actions show loaders for better UX
+## 🚀 Getting Started
 
-🎨 UI / UX
+### 1️⃣ Clone the repository
 
-Built with shadcn/ui + Tailwind CSS
-
-Neutral, clean design
-
-Dark / Light theme toggle
-
-Loading spinners and empty states
-
-Markdown rendering for AI-generated content
-
-🏗️ Tech Stack
-
-Frontend: Next.js 14 (App Router)
-
-Backend APIs: Hono (inside Next.js API routes)
-
-Authentication: NextAuth (JWT strategy)
-
-Database: MongoDB + Mongoose
-
-AI: OpenAI API
-
-UI: Tailwind CSS v4, shadcn/ui, Lucide Icons
-
-Markdown Rendering: react-markdown
-
-📁 Project Structure (Simplified)
-app/
- ├─ api/
- │   ├─ auth/[...nextauth]/route.ts
- │   ├─ [[...route]]/route.ts   # Hono APIs
- ├─ dashboard/
- ├─ notes/
- │   ├─ new/
- │   ├─ [id]/
- ├─ login/
- ├─ register/
-components/
-lib/
-model/
-types/
-
-🚀 Getting Started
-1️⃣ Clone the repository
 git clone https://github.com/your-username/ai-notes.git
 cd ai-notes
-
-2️⃣ Install dependencies
 npm install
-
-3️⃣ Environment Variables
-
-You’ve already pushed .env.example.
-Create your own .env file based on it:
-
-cp .env.example .env
-
-Required Environment Variables
-# MongoDB
-MONGODB_URI=
-
-# NextAuth
-NEXTAUTH_SECRET=
-NEXTAUTH_URL=http://localhost:3000
-
-# OpenAI
-OPENAI_API_KEY=
-
-Notes
-
-NEXTAUTH_SECRET can be generated using:
-
-openssl rand -base64 32
-
-
-MongoDB should be a valid connection string
-
-OpenAI key is required for AI features (Improve, Tags, Summary)
-
-4️⃣ Run the development server
+cp .env.example .env.local
 npm run dev
-
-
-Open:
-
 http://localhost:3000
 
-🔑 Authentication Flow
 
-User registers using email & password
+## 🔑 Authentication Flow
 
-Passwords are hashed using bcrypt
+- User registers using email & password
+- Passwords are hashed using `bcrypt`
+- Login handled by **NextAuth Credentials Provider**
+- JWT stores `id`, `name`, and `email`
+- Server components use `getServerSession(authOptions)`
+- APIs derive `userId` from JWT (never from client)
 
-Login handled by NextAuth Credentials provider
+---
 
-JWT stores id, name, and email
+## 🧠 AI Architecture
 
-Server components use getServerSession(authOptions)
+- AI endpoints are implemented using **Hono**
+- Each feature has a dedicated API:
 
-APIs derive userId from JWT (never from client)
+  - `/api/ai/improve`
+  - `/api/ai/tags`
+  - `/api/ai/summary`
 
-🧠 AI Architecture
+- Client triggers AI actions
+- Server processes AI requests
+- UI updates with loaders and dialogs
 
-AI APIs are implemented using Hono
 
-Each AI action has its own endpoint:
-
-/api/ai/improve
-
-/api/ai/tags
-
-/api/ai/summary
-
-Requests are client-triggered
-
-Responses update UI optimistically
-
-Loaders shown during AI processing
-
-🔐 Security Considerations
-
-User ID is never trusted from client
-
-Notes are fetched using both noteId and userId
-
-Protected routes enforced via server-side session checks
-
-API access validated using JWT tokens
-
-📌 Why This Architecture
-
-Server Components for performance & security
-
-Hono for lightweight, structured APIs
-
-JWT strategy for scalable auth
-
-Markdown storage for AI-generated content
-
-Tailwind + shadcn for consistent UI
-
-🧪 Future Improvements
-
-Edit / Delete notes
-
-Full-text search
-
-Tag-based filtering
-
-AI streaming responses
-
-Role-based access
-
-Note sharing
-
-👨‍💻 Author
-
-Kartik Singh
-MERN Stack & Full-Stack Developer
-Focused on scalable, production-ready web apps
