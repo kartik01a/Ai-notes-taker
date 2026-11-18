@@ -18,7 +18,7 @@
     "clsx": "^2.1.1",
     "hono": "^4.11.1",
     "lucide-react": "^0.562.0",
-    "mongoose": "^9.0.2",
+    "mongoose": "^9.11.4",
     "next": "16.1.0",
     "next-auth": "^4.24.13",
     "next-theme": "^0.1.5",
